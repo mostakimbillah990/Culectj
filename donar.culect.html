@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টেলিগ্রাম মেসেজ পাঠান</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>টেলিগ্রাম মেসেজ পাঠান</h2>
+
+        <label>নাম:</label>
+        <input type="text" id="name" placeholder="আপনার নাম লিখুন">
+
+        <label>জেলা:</label>
+        <input type="text" id="district" placeholder="বর্তমান জেলা লিখুন">
+
+        <label>নাম্বার</label>
+        <input type="number" id="number" placeholder="ডোনার এর কন্টাক্ট নাম্বার লিখুন">
+        
+        <label>রক্তের গ্রুপ</label>
+        <input type="text" id="blood" placeholder="আপনার রক্তের গ্রুপ লিখুন">
+
+        <label>সম্পূর্ণ ঠিকানা</label>
+        <input type="text" id="alldistrict" placeholder="সম্পূর্ণ ঠিকানা লিখুন">
+        
+        <label>স্ট্যাটাস:</label>
+        <input type="text" id="status" placeholder="Active/Nonactive">
+
+        <button onclick="sendMessage()">মেসেজ পাঠান</button>
+
+        <div id="responseMessage" class="message-box"></div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var botToken = "7995896882:AAEfM3Tv_guqMsXIp9cwXVPHBmcTtPbl2qI"; // আপনার Bot Token
+            var chatId = "@donarcalect"; // আপনার Chat ID
+
+            var name = document.getElementById("name").value.trim();
+            var district = document.getElementById("district").value.trim();
+            var number = document.getElementById("number").value.trim();
+            var blood = document.getElementById("blood").value.trim();
+            var alldistrict = document.getElementById("alldistrict").value.trim();
+            var status = document.getElementById("status").value.trim();
+
+            if (name === "" || number === "" || district === "") {
+                alert("⚠️ অনুগ্রহ করে নাম, নাম্বার এবং জেলা অবশ্যই লিখুন!");
+                return;
+            }
+
+            // কোড ব্লক আকারে পাঠানোর জন্য ট্রিপল ব্যাকটিক ব্যবহার করা হয়েছে
+            var message = `📩 *ব্লাড ডোনার ইনফরমেশন!* 📩\n\n`
+                + "```"
+                + "{\n"
+                + "id: 3,"
+                + "name: '" + escapeMarkdown(name) + "',"
+                + "district: '" + escapeMarkdown(district) + "',"
+                + "phone: '" + escapeMarkdown(number) + "',"
+                + "bloodGroup: '" + escapeMarkdown(blood) + "',"
+                + "address: '" + escapeMarkdown(alldistrict) + "',"
+                + "status: '" + escapeMarkdown(status) + "'"
+                + "}"
+                + "```";
+
+            var encodedMessage = encodeURIComponent(message);
+            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var responseBox = document.getElementById("responseMessage");
+                    responseBox.style.display = "block";
+                    if (data.ok) {
+                        responseBox.innerText = "✅ মেসেজ সফলভাবে পাঠানো হয়েছে!";
+                        responseBox.style.color = "green";
+                    } else {
+                        responseBox.innerText = "❌ মেসেজ পাঠাতে সমস্যা হয়েছে!";
+                        responseBox.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    var responseBox = document.getElementById("responseMessage");
+                    responseBox.style.display = "block";
+                    responseBox.innerText = "⚠️ সমস্যা হয়েছে: " + error;
+                    responseBox.style.color = "red";
+                });
+        }
+
+        function escapeMarkdown(text) {
+            return text.replace(/[_*[\]()~`>#+\-=|{}.!&]/g, "\\$&");
+        }
+    </script>
+</body>
+</html>
