@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টেলিগ্রাম মেসেজ পাঠান</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>টেলিগ্রাম মেসেজ পাঠান</h2>
+
+        <!-- নতুন ইনপুট ফিল্ডস -->
+        <label>মালিকের নাম:</label>
+        <input type="text" id="ownerName" placeholder="মালিকের নাম লিখুন">
+
+        <label>বাড়ির ধরণ:</label>
+        <select id="propertyType">
+            <option value="">বাড়ির ধরণ নির্বাচন করুন</option>
+            <option value="building">বিল্ডিং</option>
+            <option value="tinshet">টিনসেট</option>
+            <option value="meach">মেচ</option>
+        </select>
+
+        <label>ঠিকানা:</label>
+        <input type="text" id="address" placeholder="ঠিকানা লিখুন">
+
+        <label>লোকেশন:</label>
+        <input type="text" id="location" placeholder="লোকেশন লিখুন">
+
+        <label>ফুল ডিটেলস:</label>
+        <input type="text" id="details" placeholder="ফুল ডিটেলস লিখুন">
+
+        <label>মালিকের নাম্বার:</label>
+        <input type="text" id="ownerNumber" placeholder="মালিকের নাম্বার লিখুন">
+
+        <label>ইমেজ ১:</label>
+        <input type="text" id="image1" placeholder="ইমেজ এর লিংক দিন">
+
+        <button onclick="sendMessage()">মেসেজ পাঠান</button>
+
+        <div id="responseMessage" class="message-box"></div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var botToken = "7995896882:AAEfM3Tv_guqMsXIp9cwXVPHBmcTtPbl2qI"; // **আপনার Bot Token**
+            var chatId = "@toletcect"; // **আপনার Chat ID**
+
+            // ইনপুট ভ্যালু গুলো নিয়ে আসা
+            var ownerName = document.getElementById("ownerName").value.trim();
+            var propertyType = document.getElementById("propertyType").value.trim();
+            var address = document.getElementById("address").value.trim();
+            var location = document.getElementById("location").value.trim();
+            var details = document.getElementById("details").value.trim();
+            var ownerNumber = document.getElementById("ownerNumber").value.trim();
+            var image1 = document.getElementById("image1").value.trim();
+            
+            if (!ownerName || !propertyType || !address || !location || !details || !ownerNumber || !image1) {
+                alert("⚠️ অনুগ্রহ করে সবগুলো তথ্য দিন!");
+                return;
+            }
+
+            // মেসেজের কন্টেন্ট তৈরি
+            var message = `📩 *বাড়ির তথ্য!* 📩\n\n`
+                + "```json\n"
+                + "{\n"
+                + `<div class="property" data-type="mech">
+      <img src=" ${image1} ` // ইমেজ লিংক টেলিগ্রামে পাঠানোর জন্য
+                + `" alt="House 3">
+      <p><strong>মালিকের নাম:</strong> ${ownerName}\n`
+                + `</p>
+      <p><strong>বাড়ির ধরণ:</strong> ${propertyType}\n`
+                + ` </p>
+      <p><strong>ঠিকানা:</strong>${address}\n`
+                + `</p>
+      <p><strong>লোকেশন:</strong> ${location}\n`
+                + `*</p>
+      <p><strong>ফুল ডিটেলস:</strong>${details}\n`
+                + ` </p>
+      <p><strong>মালিকের নাম্বার:</strong> ${ownerNumber}\n`
+      
+                +`</p>
+    </div> `
+                + "```";
+
+
+            var encodedMessage = encodeURIComponent(message);
+            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var responseBox = document.getElementById("responseMessage");
+                    responseBox.style.display = "block";
+                    if (data.ok) {
+                        responseBox.innerText = "✅ মেসেজ সফলভাবে পাঠানো হয়েছে!";
+                        responseBox.style.color = "green";
+                    } else {
+                        responseBox.innerText = "❌ মেসেজ পাঠাতে সমস্যা হয়েছে!";
+                        responseBox.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    var responseBox = document.getElementById("responseMessage");
+                    responseBox.style.display = "block";
+                    responseBox.innerText = "⚠️ সমস্যা হয়েছে: " + error;
+                    responseBox.style.color = "red";
+                });
+        }
+    </script>
+</body>
+</html>
