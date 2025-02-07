@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আপনার তথ্য দিয়ে সহায়তা করুন</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>আপনার তথ্য দিয়ে সহায়তা করুন</h2>
+
+        <label>কোড:</label>
+        <textarea id="code" placeholder="এখানে কোড লিখুন"></textarea>
+
+        <label>নাম:</label>
+        <input type="text" id="name" placeholder="আপনার নাম লিখুন">
+
+        <label>ইমেইল:</label>
+        <input type="email" id="email" placeholder="আপনার ইমেইল লিখুন">
+
+        <label>ফেসবুক লিংক:</label>
+        <input type="text" id="facebook" placeholder="আপনার ফেসবুক লিংক দিন">
+
+        <label>নাম্বার:</label>
+        <input type="text" id="phone" placeholder="আপনার নাম্বার লিখুন">
+
+        <label>টীম নাম:</label>
+        <input type="text" id="teamName" placeholder="আপনার টীমের নাম দিন">
+
+        <label>স্ট্যাটাস:</label>
+        <input type="text" id="status" placeholder="Active/Nonactive">
+
+        <button onclick="sendMessage()">মেসেজ পাঠান</button>
+
+        <div id="responseMessage" class="message-box"></div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var botToken = "7995896882:AAEfM3Tv_guqMsXIp9cwXVPHBmcTtPbl2qI"; // আপনার Bot Token
+            var chatId = "@userinfomscs"; // আপনার Chat ID
+
+            var code = document.getElementById("code").value.trim();
+            var name = document.getElementById("name").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var facebook = document.getElementById("facebook").value.trim();
+            var phone = document.getElementById("phone").value.trim();
+            var teamName = document.getElementById("teamName").value.trim();
+            var status = document.getElementById("status").value.trim();
+
+            if (name === "" || phone === "" || email === "") {
+                alert("⚠️ অনুগ্রহ করে নাম, নাম্বার এবং ইমেইল অবশ্যই লিখুন!");
+                return;
+            }
+
+            // কোড ব্লক আকারে পাঠানোর জন্য ট্রিপল ব্যাকটিক ব্যবহার করা হয়েছে
+            var message = `📩 *ইউসার ইনফরমেশন!* 📩\n\n`
+                + "```\n"
+                + "<tr><td>" + escapeMarkdown(code) + "</td>"
+                + "<td>" + escapeMarkdown(name) + "</td>"
+                + "<td>" + escapeMarkdown(email) + "</td>"
+                + "<td><a href='" + escapeMarkdown(facebook) + "'>Facebook</a></td>"
+                + "<td>" + escapeMarkdown(phone) + "</td>"
+                + "<td>" + escapeMarkdown(teamName) + "</td>"
+                + "<td class='active'>" + escapeMarkdown(status) + "</td></tr>"
+                + "```\n";
+
+            var encodedMessage = encodeURIComponent(message);
+            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var responseBox = document.getElementById("responseMessage");
+                    responseBox.style.display = "block";
+                    if (data.ok) {
+                        responseBox.innerText = "✅ মেসেজ সফলভাবে পাঠানো হয়েছে!";
+                        responseBox.style.color = "green";
+                    } else {
+                        responseBox.innerText = "❌ মেসেজ পাঠাতে সমস্যা হয়েছে!";
+                        responseBox.style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    var responseBox = document.getElementById("responseMessage");
+                    responseBox.style.display = "block";
+                    responseBox.innerText = "⚠️ সমস্যা হয়েছে: " + error;
+                    responseBox.style.color = "red";
+                });
+        }
+
+        function escapeMarkdown(text) {
+            return text.replace(/[_*[\]()~`>#+\-=|{}.!&]/g, "\\$&");
+        }
+    </script>
+</body>
+</html>
