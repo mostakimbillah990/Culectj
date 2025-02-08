@@ -2,168 +2,507 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আপনার তথ্য দিয়ে সহায়তা করুন</title>
+    <title>ইউজার তালিকা</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background: #fff;
-            padding: 20px;
-            width: 400px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            margin: 20px;
         }
-
-        .container h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            text-align: left;
-            margin-bottom: 8px;
+        .notice {
+            font-size: 18px;
             font-weight: bold;
+            color: red;
+            background: #ffeb3b;
+            padding: 10px;
+            border-radius: 5px;
         }
-
-        input, textarea {
+        .container {
+            max-width: 100%;
+            margin: 20px auto;
+        }
+        input {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
             border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            height: 80px;
-            resize: none;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .message-box {
-            margin-top: 15px;
             padding: 10px;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            display: none;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        .active {
+            color: green;
+            font-weight: bold;
+        }
+        .inactive {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+
+    <!-- নোটিস বোর্ড -->
+    <marquee class="notice">📢 গুরুত্বপূর্ণ ঘোষণা: আমাদের নতুন আপডেট আসছে শীঘ্রই!</marquee>
+
     <div class="container">
-        <h2>আপনার তথ্য দিয়ে সহায়তা করুন</h2>
+        <h2>ইউজার তালিকা</h2>
 
-        <label>কোড:</label>
-        <textarea id="code" placeholder="এখানে কোড লিখুন"></textarea>
+        <!-- সার্চ ইনপুট -->
+        <input type="text" id="search" placeholder="কোড, নাম, বা নম্বর দিয়ে খুঁজুন..." onkeyup="searchUser()">
 
-        <label>নাম:</label>
-        <input type="text" id="name" placeholder="আপনার নাম লিখুন">
+        <!-- ইউজার টেবিল -->
+        <table>
+            <thead>
+                <tr>
+                    <th>কোড</th>
+                    <th>নাম</th>
+                    <th>ইমেইল</th>
+                    <th>ফেসবুক</th>
+                    <th>নাম্বার</th>
+                    <th>টিম</th>
+                    <th>স্টেটাস</th>
+                </tr>
+            </thead>
+            <tbody id="userTable">
+                All Hacked:
+📩 ইউসার ইনফরমেশন! 📩
 
-        <label>ইমেইল:</label>
-        <input type="email" id="email" placeholder="আপনার ইমেইল লিখুন">
+<tr><td>২৩৯</td><td>সিয়াম আহমেদ</td><td>siyamahmed99010009@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AqpenHUzW/'>Facebook</a></td><td>01854369013</td><td>Top 25 Unit's</td><td class='active'>Active</td></tr>
 
-        <label>ফেসবুক লিংক:</label>
-        <input type="text" id="facebook" placeholder="আপনার ফেসবুক লিংক দিন">
+📩 ইউসার ইনফরমেশন! 📩
 
-        <label>নাম্বার:</label>
-        <input type="text" id="phone" placeholder="আপনার নাম্বার লিখুন">
+<tr><td>৩৪০</td><td>হুসাইন আহমাদ</td><td>hossainahmad4201@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=61571152361639'>Facebook</a></td><td>০১৭০৬\-৮৩২২২৫</td><td>আন নাসর</td><td class='active'>Active</td></tr>
 
-        <label>টীম নাম:</label>
-        <input type="text" id="teamName" placeholder="আপনার টীমের নাম দিন">
+📩 ইউসার ইনফরমেশন! 📩
 
-        <label>স্ট্যাটাস:</label>
-        <input type="text" id="status" placeholder="Active/Nonactive">
+<tr><td>৩৬২</td><td>তারেক হোসেন</td><td>tarekhosen5400@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1UFsfLB9LJ/'>Facebook</a></td><td>01836663571</td><td>আন নাসর</td><td class='active'>https://www\.facebook\.com/share/p/15bKx78uWw/</td></tr>
 
-        <button onclick="sendMessage()">মেসেজ পাঠান</button>
+📩 ইউসার ইনফরমেশন! 📩
 
-        <div id="responseMessage" class="message-box"></div>
+<tr><td>৩৬২</td><td>তারেক হোসেন</td><td>tarekhosen5400@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1UFsfLB9LJ/'>Facebook</a></td><td>01836663571</td><td>আন নাসর</td><td class='active'>https://www\.facebook\.com/share/p/15bKx78uWw/</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>362</td><td>তারেক হোসেন</td><td>tarekhosen5400@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1UFsfLB9LJ/'>Facebook</a></td><td>01836663571</td><td>আন নাসর</td><td class='active'>https://www\.facebook\.com/share/p/15bKx78uWw/</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>238</td><td>ইমরান</td><td>imranhossainovi786@gmail\.com</td><td><a href='https://www\.facebook\.com/imranhossainovi786'>Facebook</a></td><td>00971547431493</td><td>Top\-25</td><td class='active'>এক্সপার্ট</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>২৩৮</td><td>ইমরান</td><td>imranhossainovi786@gmail\.com</td><td><a href='https://www\.facebook\.com/imranhossainovi786'>Facebook</a></td><td>00971547431493</td><td>Top\-25</td><td class='active'>Expert</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>259</td><td>Md Abdur Rakib</td><td>hmarrakib@gmail\.com</td><td><a href='https://www\.facebook\.com/abdurrakibofficial02'>Facebook</a></td><td>01329483236</td><td>Top\-25 Unit's \(MSCS\)</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৬</td><td>মোঃ রনি হোসেন</td><td>ronichy36@gmail\.com</td><td><a href='https://www\.facebook\.com/ronihossen2173?mibextid\=ZbWKwL'>Facebook</a></td><td>01810612173</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৬</td><td>মোঃ রনি হোসেন</td><td>ronichy36@gmail\.com</td><td><a href='https://www\.facebook\.com/ronihossen2173?mibextid\=ZbWKwL'>Facebook</a></td><td>01810612173</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৬</td><td>মোঃ রনি হোসেন</td><td>ronichy36@gmail\.com</td><td><a href='https://www\.facebook\.com/ronihossen2173?mibextid\=ZbWKwL'>Facebook</a></td><td>01810612173</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>383</td><td>Abdur Rahim Hridoy</td><td>abdurrahimhridoy574@gail\.com</td><td><a href='https://www\.facebook\.com/share/1A53rAXjqA/'>Facebook</a></td><td>01794\-198429</td><td>AN\- NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>383</td><td>Abdur Rahim Hridoy</td><td>abdurrahimhridoy574@gail\.com</td><td><a href='https://www\.facebook\.com/share/1A53rAXjqA/'>Facebook</a></td><td>01794\-198429</td><td>AN\- NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>১৩৭</td><td>মুহাম্মাদ পাহিন ইসলাম</td><td>mdpahinislam6@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1BnvSH6X6c/'>Facebook</a></td><td>01761014001</td><td>Muslim Spamming \& Cyber Squad</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>383</td><td>Abdur Rahim Hridoy</td><td>abdurrahimhridoy574@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1A53rAXjqA/'>Facebook</a></td><td>01794\-198429</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>383</td><td>Abdur Rahim Hridoy</td><td>abdurrahimhridoy574@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1A53rAXjqA/'>Facebook</a></td><td>01794\-198429</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>383</td><td>Abdur Rahim Hridoy</td><td>abdurrahimhridoy574@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1A53rAXjqA/'>Facebook</a></td><td>01794\-198429</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৫৬</td><td>আরিফুল হক</td><td>arifulhaque01876152@gmail\.com</td><td><a href='https://www\.facebook\.com/ariful993'>Facebook</a></td><td>01755009026</td><td>আন\-নাসর</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৫৬</td><td>আরিফুল হক</td><td>arifulhaque01876152@gmail\.com</td><td><a href='https://www\.facebook\.com/ariful993'>Facebook</a></td><td>01755009026</td><td>আন\-নাসর</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>105</td><td>MD Hasan Zamil</td><td>mdhasan075372@gmail\.com</td><td><a href='https://www\.facebook\.com/share/12DtiPFi9up/'>Facebook</a></td><td>01300173278</td><td>An naser</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৩</td><td>নাইম</td><td>naimsheikh80212@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15W2oehGR8/'>Facebook</a></td><td>01830240326</td><td>MSCS</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৩</td><td>নাইম</td><td>naimsheikh80212@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15W2oehGR8/'>Facebook</a></td><td>01830240326</td><td>MSCS</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৩</td><td>নাইম</td><td>naimsheikh80212@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15W2oehGR8/'>Facebook</a></td><td>01830240326</td><td>MSCS</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৩</td><td>নাইম</td><td>naimsheikh80212@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15W2oehGR8/'>Facebook</a></td><td>01830240326</td><td>MSCS</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৩</td><td>নাইম</td><td>naimsheikh80212@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15W2oehGR8/'>Facebook</a></td><td>01830240326</td><td>MSCS</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৩</td><td>নাইম</td><td>naimsheikh80212@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15W2oehGR8/'>Facebook</a></td><td>01830240326</td><td>MSCS</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>১৩১</td><td>মোহাম্মদ ফরহাদ হোসেন</td><td>cfcreaticlefarhan@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1EHg1hrmVm/?mibextid\=qi2Omg'>Facebook</a></td><td>01401396829</td><td>Top\-25 Unit's \(MSCS\)</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>337</td><td>Md Mahfuzur Rahman</td><td>mdmahfuz1222@gmail\.com</td><td><a href='facebook\.com/mahfuzjj'>Facebook</a></td><td>01879444004</td><td>AN NASAR</td><td class='active'>Activ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>337</td><td>Md Mahfuzur Rahman</td><td>mdmahfuz1222@gmail\.com</td><td><a href='facebook\.com/mahfuzjj'>Facebook</a></td><td>01879444004</td><td>AN NASAR</td><td class='active'>Activ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬০</td><td>মোঃ নছর উল্লাহ</td><td>katebi2007@gmail\.com</td><td><a href='https://www\.facebook\.com/nasrullah360'>Facebook</a></td><td>01600868949</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>354</td><td>Md\.Shihabul\. islam</td><td>imdshihab037@gmail\.com</td><td><a href='https://www\.facebook\.com/shihab1105?mibextid\=ZbWKwL'>Facebook</a></td><td>01758580874</td><td>𝐀𝐍\-𝐍𝐀𝐒𝐀𝐑</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>354</td><td>Md\.Shihabul\. islam</td><td>imdshihab037@gmail\.com</td><td><a href='https://www\.facebook\.com/shihab1105?mibextid\=ZbWKwL'>Facebook</a></td><td>01758580874</td><td>𝐀𝐍\-𝐍𝐀𝐒𝐀𝐑</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৪৮</td><td>Mohammad Mujahid Islam</td><td>mdmujahid77000@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=61571165470840'>Facebook</a></td><td>01947232382</td><td>AN\-NASAR</td><td class='active'>মাশাল্লাহ্ ভালো উদ্যোগ আল্লাহ তায়ালা পরিপূর্ণ সফলতা দান করুক।</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৪৮</td><td>Mohammad Mujahid Islam</td><td>mdmujahid77000@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=61571165470840'>Facebook</a></td><td>01947232382</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৪৮</td><td>Mohammad Mujahid Islam</td><td>mdmujahid77000@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=61571165470840'>Facebook</a></td><td>01947232382</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬৫</td><td>মোঃ সিজার পারভেস</td><td>mdsijarparves@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1FNgu5JQsQ/'>Facebook</a></td><td>০১৯৩৮৬৮৯৩৮৯</td><td>আন \- নাসার</td><td class='active'>এক্টিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৪৯</td><td>আদিব হোসেন</td><td>adibaarib65@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15wXmgBb9K/'>Facebook</a></td><td>01858106265</td><td>আন\-নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৯৪</td><td>Md Bayzid</td><td>bbayzid740@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=100023295304449'>Facebook</a></td><td>01877675140</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৯৪</td><td>Md Bayzid</td><td>bbayzid740@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=100023295304449'>Facebook</a></td><td>01877675140</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৯৪</td><td>Md Bayzid</td><td>bbayzid740@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=100023295304449'>Facebook</a></td><td>01877675140</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৯৪</td><td>Md Bayzid</td><td>bbayzid740@gmail\.com</td><td><a href='https://www\.facebook\.com/profile\.php?id\=100023295304449'>Facebook</a></td><td>01877675140</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>364</td><td>মোঃরাজু</td><td>mdrajushk6@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15urVMXyPx/'>Facebook</a></td><td>01831121214</td><td>নাসর</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>364</td><td>মোঃরাজু</td><td>mdrajushk6@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15urVMXyPx/'>Facebook</a></td><td>01831121214</td><td>নাসর</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৭০</td><td>ওমর হামদান</td><td>omerhamdan6647@gmail\.com</td><td><a href='https://www\.facebook\.com/omarhamdan6345'>Facebook</a></td><td>\+880 1560\-046943</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৭০</td><td>ওমর হামদান</td><td>omerhamdan6647@gmail\.com</td><td><a href='https://www\.facebook\.com/omarhamdan6345'>Facebook</a></td><td>\+880 1560\-046943</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৭০</td><td>ওমর হামদান</td><td>omerhamdan6647@gmail\.com</td><td><a href='https://www\.facebook\.com/omarhamdan6345'>Facebook</a></td><td>\+880 1560\-046943</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>140</td><td>Mohidul Islam risvy</td><td>mohidulislamrisvy102@gmail\.com</td><td><a href='https://www\.facebook\.com/mohidul140'>Facebook</a></td><td>01882634801</td><td>Treinar প্যানেল</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬১</td><td>শেখ মুহাম্মদ</td><td>anamulhaque@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1L3wDqHMv7/'>Facebook</a></td><td>01715114361</td><td>আন নাসর</td><td class='active'>একটিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬১</td><td>শেখ মুহাম্মদ</td><td>anamulhaque@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1L3wDqHMv7/'>Facebook</a></td><td>01715114361</td><td>আন নাসর</td><td class='active'>একটিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>344</td><td>Mohammad Mehedi Hasan</td><td>mehedi2hasan3434@gmail\.com</td><td><a href='https://www\.facebook\.com/mehedi2hasan3434'>Facebook</a></td><td>01827863434</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>344</td><td>Mohammad Mehedi Hasan</td><td>mehedi2hasan3434@gmail\.com</td><td><a href='https://www\.facebook\.com/mehedi2hasan3434'>Facebook</a></td><td>01827863434</td><td>AN\-NASAR</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>351</td><td>Tawfique Ahmed</td><td>tawfique647@gmail\.com</td><td><a href='https://www\.facebook\.com/tawfique6601'>Facebook</a></td><td>01554495221</td><td>Nassar</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>351</td><td>Tawfique Ahmed</td><td>tawfique647@gmail\.com</td><td><a href='https://www\.facebook\.com/tawfique6601'>Facebook</a></td><td>01554495221</td><td>Nassar</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩২০</td><td>মোঃ হাসেন আলী</td><td>mmdhasenali015@gmail\.com</td><td><a href='https://www\.facebook\.com/md\.hasen\.ali\.015'>Facebook</a></td><td>01848546997</td><td>টীম \- শাবাব</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৯৫</td><td>মোঃ আমিনুল ইসলাম</td><td>hafezaminulislam361@gmail\.com</td><td><a href='https://www\.facebook\.com/Md\.Aminul\.426525'>Facebook</a></td><td>01612207603</td><td>ইত্তেহাদ</td><td class='active'></td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>২৯৬</td><td>রায়হান চৌধুরী</td><td>virtualking296@gmail\.com</td><td><a href='https://www\.facebook\.com/VoidPsyche296'>Facebook</a></td><td>০১৯৫৯৮৮২৮১৬</td><td>সাবাব</td><td class='active'>এক্টিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>ইত্তেহাত৩৬৮</td><td>আবির</td><td>abirmahmudabir111@gmail\.com</td><td><a href='https://www\.facebook\.com/Badsha4046'>Facebook</a></td><td>01608293342</td><td>Muslim spamming \&cyber squad</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>ইত্তেহাত৩৬৮</td><td>আবির</td><td>abirmahmudabir111@gmail\.com</td><td><a href='https://www\.facebook\.com/Badsha4046'>Facebook</a></td><td>01608293342</td><td>Muslim spamming \&cyber squad</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬৮</td><td>আবির</td><td>abirmahmudabir111@gmail\.com</td><td><a href='https://www\.facebook\.com/Badsha4046'>Facebook</a></td><td>01608293342</td><td>ইত্তেহাদ</td><td class='active'>active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>375</td><td>MD\.NUR ALAM</td><td>mdnuralam4421@gmail\.com</td><td><a href='https://www\.facebook\.com/mdnuralam\.4421?mibextid\=ZbWKwL'>Facebook</a></td><td>01604884421</td><td>ITTIHAD</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>375</td><td>MD\.NUR ALAM</td><td>mdnuralam4421@gmail\.com</td><td><a href='https://www\.facebook\.com/mdnuralam\.4421?mibextid\=ZbWKwL'>Facebook</a></td><td>01604884421</td><td>ITTIHAD</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬৭</td><td>মোঃ জাকির হোসেন</td><td>jakir5068@gmail\.com</td><td><a href='https://www\.facebook\.com/share/19qXAPPmid/'>Facebook</a></td><td>01317048175</td><td>ইত্তেহাদ</td><td class='active'>একটিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৬৭</td><td>মোঃ জাকির হোসেন</td><td>jakir5068@gmail\.com</td><td><a href='https://www\.facebook\.com/share/19qXAPPmid/'>Facebook</a></td><td>01317048175</td><td>ইত্তেহাদ</td><td class='active'>একটিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>376</td><td>মোঃরিফাত</td><td>mdrobiulislamrifat82@gmail\.com</td><td><a href='https://www\.facebook\.com/Md\.Rifat43'>Facebook</a></td><td>01611181766</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>376</td><td>মোঃরিফাত</td><td>mdrobiulislamrifat82@gmail\.com</td><td><a href='https://www\.facebook\.com/Md\.Rifat43'>Facebook</a></td><td>01611181766</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>376</td><td>মোঃরিফাত</td><td>mdrobiulislamrifat82@gmail\.com</td><td><a href='https://www\.facebook\.com/Md\.Rifat43'>Facebook</a></td><td>01611181766</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>376</td><td>মোঃরিফাত</td><td>mdrobiulislamrifat82@gmail\.com</td><td><a href='https://www\.facebook\.com/Md\.Rifat43'>Facebook</a></td><td>01611181766</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>364</td><td>Md Raju</td><td>mdrajushk6@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1ABrwtKq5w/'>Facebook</a></td><td>0131121214</td><td>নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>364</td><td>Md Raju</td><td>mdrajushk6@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1ABrwtKq5w/'>Facebook</a></td><td>0131121214</td><td>নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৮</td><td>মনীরুল ইসলাম</td><td>monirulics1997@gmail\.com</td><td><a href='https://www\.facebook\.com/monirulislam1927?mibextid\=ZbWKwL'>Facebook</a></td><td>01770077106</td><td>আন নাসার</td><td class='active'>এক্টিভিটি</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>২৩৭</td><td>কামরান আহমেদ</td><td>mdkamranahmed2003@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1JxJxFFfry/'>Facebook</a></td><td>\+8801724354050</td><td>Top 25</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>359</td><td>শিখন পারভেজ</td><td>shikhonpervez2005@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18Ke6azoAu/'>Facebook</a></td><td>01577055846</td><td>আন নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৯</td><td>মো নাজমুল হোসেন শান্ত</td><td>santoff90@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AuQs8T1Fr/'>Facebook</a></td><td>০১৭৫৩৫৫৬৪৪৭</td><td>AN\-NASAR</td><td class='active'>ACTIVE</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৯</td><td>মো নাজমুল হোসেন শান্ত</td><td>santoff90@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AuQs8T1Fr/'>Facebook</a></td><td>০১৭৫৩৫৫৬৪৪৭</td><td>AN\-NASAR</td><td class='active'>ACTIVE</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৯</td><td>মো নাজমুল হোসেন শান্ত</td><td>santoff90@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AuQs8T1Fr/'>Facebook</a></td><td>০১৭৫৩৫৫৬৪৪৭</td><td>AN\-NASAR</td><td class='active'>ACTIVE</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৯</td><td>মো নাজমুল হোসেন শান্ত</td><td>santoff90@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AuQs8T1Fr/'>Facebook</a></td><td>০১৭৫৩৫৫৬৪৪৭</td><td>AN\-NASAR</td><td class='active'>ACTIVE</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৩৯</td><td>মো নাজমুল হোসেন শান্ত</td><td>santoff90@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AuQs8T1Fr/'>Facebook</a></td><td>০১৭৫৩৫৫৬৪৪৭</td><td>AN\-NASAR</td><td class='active'>ACTIVE</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>Chittagong\-325</td><td>Imran</td><td>ayen3948@gmail\.com</td><td><a href='https://www\.facebook\.com/share/18g7dKMm2F/'>Facebook</a></td><td>01770910367</td><td>Muslim Spamming \& Cyber Squad</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>355</td><td>Shahriar Islam</td><td>shahriardinj24@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1BCH6P6Q6p/'>Facebook</a></td><td>01406593989</td><td>আল নাসর</td><td class='active'>এক্টিভ</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>২৮২</td><td>শিপু</td><td>mamunislam3152@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AFwrXBWva/'>Facebook</a></td><td>01823958334</td><td>SHABAB</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>২৮২</td><td>শিপু</td><td>mamunislam3152@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1AFwrXBWva/'>Facebook</a></td><td>01823958334</td><td>SHABAB</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>১৩৫</td><td>মোঃ তানভীর আহম্মেদ</td><td>tanvirmm2003@gmail\.com</td><td><a href='https://www\.facebook\.com/MT\.Tanvir\.Hossain\.Mozumder'>Facebook</a></td><td>01604907752</td><td>Expert</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>385</td><td>Badsha Alom</td><td>badshaalom2m@gmail\.com</td><td><a href='https://www\.facebook\.com/share/19vTJ6AzmW/'>Facebook</a></td><td>01308754394</td><td>ইত্তেহাদ B5</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>266</td><td>MD\. SOROWAR HOSSAIN</td><td>mdsorowarhossain74@gmail\.com</td><td><a href='https://www\.facebook\.com/sorowar\.hossain\.4763'>Facebook</a></td><td>01728987147</td><td>Team Shabab</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>266</td><td>MD\. SOROWAR HOSSAIN</td><td>mdsorowarhossain74@gmail\.com</td><td><a href='https://www\.facebook\.com/sorowar\.hossain\.4763'>Facebook</a></td><td>01728987147</td><td>Team Shabab</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>364</td><td>মোঃরাজি</td><td>mdrajushk6@gmail\.com</td><td><a href='https://www\.facebook\.com/share/19qQggV1aU/'>Facebook</a></td><td>01831121214</td><td>নাসর</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>273</td><td>Rihad Wazid</td><td>mdwazid2024@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1EcHvR57sA/'>Facebook</a></td><td>01766415435</td><td>Team shabab</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>273</td><td>Rihad Wazid</td><td>mdwazid2024@gmail\.com</td><td><a href='https://www\.facebook\.com/share/1EcHvR57sA/'>Facebook</a></td><td>01766415435</td><td>Team shabab</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৭৪</td><td>আহনাফ ইসলাম রিত্তিক</td><td>rittik243@gmail\.com</td><td><a href='www\.facebook\.com/Ahnafhislamrittik'>Facebook</a></td><td>01306630466</td><td>ইত্তেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৭৩</td><td>আল হাসান শিহাব</td><td>alhassan719720@gmail\.com</td><td><a href='https://www\.facebook\.com/SHIHAB\.719720'>Facebook</a></td><td>01794296819</td><td>ইওেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৭৩</td><td>আল হাসান শিহাব</td><td>alhassan719720@gmail\.com</td><td><a href='https://www\.facebook\.com/SHIHAB\.719720'>Facebook</a></td><td>01794296819</td><td>ইওেহাদ</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৪২</td><td>Zishan Miah</td><td>zishanmiah001@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15k8tSzWae/'>Facebook</a></td><td>01615020434</td><td>AN\-Nasar</td><td class='active'>Active</td></tr>
+
+📩 ইউসার ইনফরমেশন! 📩
+
+<tr><td>৩৪২</td><td>Zishan Miah</td><td>zishanmiah001@gmail\.com</td><td><a href='https://www\.facebook\.com/share/15k8tSzWae/'>Facebook</a></td><td>01615020434</td><td>AN\-Nasar</td><td class='active'>Active</td></tr>
+
+            </tbody>
+        </table>
     </div>
 
     <script>
-        function sendMessage() {
-            var botToken = "7995896882:AAEfM3Tv_guqMsXIp9cwXVPHBmcTtPbl2qI"; // আপনার Bot Token
-            var chatId = "@userinfomscs"; // আপনার Chat ID
+        function searchUser() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let table = document.getElementById("userTable");
+            let rows = table.getElementsByTagName("tr");
 
-            var code = document.getElementById("code").value.trim();
-            var name = document.getElementById("name").value.trim();
-            var email = document.getElementById("email").value.trim();
-            var facebook = document.getElementById("facebook").value.trim();
-            var phone = document.getElementById("phone").value.trim();
-            var teamName = document.getElementById("teamName").value.trim();
-            var status = document.getElementById("status").value.trim();
+            for (let i = 0; i < rows.length; i++) {
+                let cols = rows[i].getElementsByTagName("td");
+                let found = false;
 
-            if (name === "" || phone === "" || email === "") {
-                alert("⚠️ অনুগ্রহ করে নাম, নাম্বার এবং ইমেইল অবশ্যই লিখুন!");
-                return;
-            }
-
-            // কোড ব্লক আকারে পাঠানোর জন্য ট্রিপল ব্যাকটিক ব্যবহার করা হয়েছে
-            var message = `📩 *ইউসার ইনফরমেশন!* 📩\n\n`
-                + "```\n"
-                + "<tr><td>" + escapeMarkdown(code) + "</td>"
-                + "<td>" + escapeMarkdown(name) + "</td>"
-                + "<td>" + escapeMarkdown(email) + "</td>"
-                + "<td><a href='" + escapeMarkdown(facebook) + "'>Facebook</a></td>"
-                + "<td>" + escapeMarkdown(phone) + "</td>"
-                + "<td>" + escapeMarkdown(teamName) + "</td>"
-                + "<td class='active'>" + escapeMarkdown(status) + "</td></tr>"
-                + "```\n";
-
-            var encodedMessage = encodeURIComponent(message);
-            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    var responseBox = document.getElementById("responseMessage");
-                    responseBox.style.display = "block";
-                    if (data.ok) {
-                        responseBox.innerText = "✅ মেসেজ সফলভাবে পাঠানো হয়েছে!";
-                        responseBox.style.color = "green";
-                    } else {
-                        responseBox.innerText = "❌ মেসেজ পাঠাতে সমস্যা হয়েছে!";
-                        responseBox.style.color = "red";
+                for (let j = 0; j < cols.length; j++) {
+                    if (cols[j].innerText.toLowerCase().includes(input)) {
+                        found = true;
+                        break;
                     }
-                })
-                .catch(error => {
-                    var responseBox = document.getElementById("responseMessage");
-                    responseBox.style.display = "block";
-                    responseBox.innerText = "⚠️ সমস্যা হয়েছে: " + error;
-                    responseBox.style.color = "red";
-                });
-        }
+                }
 
-        function escapeMarkdown(text) {
-            return text.replace(/[_*[\]()~`>#+\-=|{}.!&]/g, "\\$&");
+                rows[i].style.display = found ? "" : "none";
+            }
         }
     </script>
+
 </body>
-</html>
+    </html>
